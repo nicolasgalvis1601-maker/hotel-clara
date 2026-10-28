@@ -1,0 +1,25 @@
+# Blueprint de Render: un solo servicio web entrega la API (FastAPI) y el frontend.
+# Render → New → Blueprint → elige este repositorio.
+services:
+  - type: web
+    name: hotel-clara
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # Cadena de conexión de MongoDB Atlas (mongodb+srv://...). Render la pide al crear.
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DATABASE
+        value: hotel
+      # Secretos generados automáticamente por Render (no los escribas en el código).
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_SETUP_KEY
+        generateValue: true
+      # Solo hace falta si el frontend se publica en otro dominio (p. ej. GitHub Pages).
+      - key: CORS_ORIGINS
+        value: http://localhost:5500,http://127.0.0.1:5500

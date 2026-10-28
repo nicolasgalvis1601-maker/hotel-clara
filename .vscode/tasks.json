@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Crear entorno virtual e instalar dependencias",
+      "type": "shell",
+      "command": "c:/python314/python.exe -m venv .venv; .\\.venv\\Scripts\\python.exe -m pip install -r requirements.txt; .\\.venv\\Scripts\\python.exe -m backend.verificar_mongo",
+      "isBackground": false,
+      "problemMatcher": []
+    },
+    {
+      "label": "Ejecutar pruebas",
+      "type": "shell",
+      "command": ".\\.venv\\Scripts\\python.exe -m pip install -r requirements-dev.txt; if ($?) { .\\.venv\\Scripts\\python.exe -m unittest discover -s qa\\tests -v }",
+      "isBackground": false,
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Probar API contra MongoDB temporal",
+      "type": "shell",
+      "command": "$env:RUN_MONGO_INTEGRATION='1'; .\\.venv\\Scripts\\python.exe -m unittest discover -s qa\\tests -p test_mongodb_integration.py -v",
+      "isBackground": false,
+      "problemMatcher": []
+    },
+    {
+      "label": "Iniciar API Hotel Clara",
+      "type": "shell",
+      "command": ".\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "uvicorn",
+        "backend.app:app",
+        "--reload"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Validar JavaScript del frontend",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "--check",
+        "frontend\\script.js"
+      ],
+      "isBackground": false,
+      "problemMatcher": []
+    },
+    {
+      "label": "Crear configuración local segura",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "backend\\scripts\\setup-local-env.js"
+      ],
+      "isBackground": false,
+      "problemMatcher": []
+    }
+  ]
+}
