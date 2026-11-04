@@ -5,7 +5,7 @@
   "description": "Interfaz web y API de reservas de Hotel Clara",
   "scripts": {
     "dev": "node backend/scripts/dev.js",
-    "test": "node --test qa/tests/test_dev_launcher.cjs",
+    "test": "node --test qa/tests/test_dev_launcher.cjs qa/tests/test_frontend_prices.cjs",
     "check": "node --check frontend/config.js && node --check frontend/script.js && node --check backend/scripts/dev.js"
   }
 }

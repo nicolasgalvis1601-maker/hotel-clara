@@ -150,5 +150,6 @@ finalizar; no modifica `hotel`.
 La tarea **Validar JavaScript del frontend** revisa la sintaxis del cliente.
 
 `npm run check` valida la sintaxis JavaScript y `npm test` comprueba el
-lanzador de desarrollo (selección de Python, argumentos, errores y cierre).
+lanzador de desarrollo (selección de Python, argumentos, errores y cierre)
+y el formato de precios COP sin decimales.
 Las pruebas Python se ejecutan por separado con el comando anterior.
