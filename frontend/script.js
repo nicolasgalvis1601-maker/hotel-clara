@@ -344,27 +344,27 @@ function getSearchCriteria() {
   const modalidad = bookingModeInput.value;
 
   if (!checkin || !checkout) {
-    return { valid: false, error: 'Selecciona la fecha de inicio y fin para reservar.' };
+    return { valid: false, modalidad, error: 'Selecciona la fecha de inicio y fin para reservar.' };
   }
 
   if (modalidad === 'noches' && checkin < today) {
-    return { valid: false, error: 'La fecha de entrada no puede ser anterior a hoy.' };
+    return { valid: false, modalidad, error: 'La fecha de entrada no puede ser anterior a hoy.' };
   }
 
   if (modalidad === 'noches') {
     if (nightsBetween(checkin, checkout) < 1) {
-      return { valid: false, error: 'La salida debe ser posterior a la entrada.' };
+      return { valid: false, modalidad, error: 'La salida debe ser posterior a la entrada.' };
     }
     return { valid: true, modalidad, checkin, checkout, guests };
   }
 
   const startTime = appointmentStartInput.value;
   const endTime = appointmentEndInput.value;
-  if (!startTime || !endTime) return { valid: false, error: 'Selecciona la hora de inicio y fin de la cita.' };
+  if (!startTime || !endTime) return { valid: false, modalidad, error: 'Selecciona la hora de inicio y fin de la cita.' };
   const start = new Date(`${checkin}T${startTime}`);
   const end = new Date(`${checkout}T${endTime}`);
   if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime()) || start <= new Date() || end <= start) {
-    return { valid: false, error: 'La cita debe comenzar en el futuro y terminar después de su inicio.' };
+    return { valid: false, modalidad, error: 'La cita debe comenzar en el futuro y terminar después de su inicio.' };
   }
   return {
     valid: true,

@@ -29,3 +29,22 @@ test('catalogo y administracion usan el formateador sin toFixed', () => {
   assert.ok(source.includes('${formatMoney(service.precio)}'));
   assert.doesNotMatch(source, /\.toFixed\(2\)/);
 });
+
+test('fechas incompletas conservan la modalidad para mostrar tarifa y estancia', () => {
+  const definition = source.match(/function getSearchCriteria\(\) \{[\s\S]*?\n\}/);
+  assert.ok(definition);
+  for (const modalidad of ['noches', 'horario']) {
+    const context = createContext({
+      checkinInput: { value: '' },
+      checkoutInput: { value: '' },
+      guestsInput: { value: '2' },
+      bookingModeInput: { value: modalidad },
+      toISODate: () => '2026-11-04',
+    });
+    runInContext(definition[0], context);
+    const criteria = context.getSearchCriteria();
+    assert.equal(criteria.valid, false);
+    assert.equal(criteria.modalidad, modalidad);
+    assert.ok(criteria.error);
+  }
+});

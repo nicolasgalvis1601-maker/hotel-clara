@@ -8,7 +8,7 @@
   --line: #cbd5e1;
   --primary: #2563eb;
   --primary-dark: #1e3a8a;
-  --success: #16a34a;
+  --success: #15803d;
   --error: #dc2626;
   --warning: #f59e0b;
   --info: #0284c7;
@@ -20,7 +20,7 @@
 
 body {
   margin: 0;
-  min-width: 320px;
+  min-width: 0;
   background: var(--paper);
   color: var(--ink);
   font-family: 'Manrope', sans-serif;
@@ -38,7 +38,10 @@ textarea:focus-visible { outline: 2px solid var(--primary); }
 .service-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 18px; }
 .service-image { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 220px; object-fit: cover; border-radius: 4px; background: #e8eef5; }
 .service-card { overflow-wrap: anywhere; }
+.service-card h3 { margin: 0; font-size: 18px; }
 .service-card .room-detail { white-space: pre-wrap; }
+.service-card .room-meta { margin-top: auto; }
+.service-card .user-state { align-self: flex-start; }
 .field input[type="file"] { min-width: 0; font-size: 12px; }
 
 /* Layout */
@@ -479,7 +482,7 @@ h1 em {
 
 .search-form {
   display: grid;
-  grid-template-columns: repeat(3, minmax(140px, 1fr)) auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
   align-items: end;
 }
@@ -503,6 +506,8 @@ h1 em {
   gap: 14px;
   margin-top: 0;
 }
+
+.search-notes { grid-column: 1 / -1; }
 
 .booking-search .global-message:not(:empty) {
   margin: 18px 0 0;
@@ -551,7 +556,7 @@ h1 em {
 
 .room-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
   gap: 18px;
 }
 
@@ -562,6 +567,7 @@ h1 em {
   padding: 22px;
   border: 1px solid var(--line);
   background: var(--surface);
+  min-width: 0;
 }
 
 .room-card.unavailable {
@@ -570,6 +576,7 @@ h1 em {
 
 .room-top {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
   gap: 10px;
@@ -608,6 +615,7 @@ h1 em {
 
 .room-bottom {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
@@ -748,7 +756,7 @@ h1 em {
 
 .reservation-edit {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
   gap: 16px;
   align-items: end;
 }
@@ -818,7 +826,7 @@ h1 em {
 
 .app-page { margin-top: 32px; min-width: 0; overflow-wrap: anywhere; }
 .local-notice { color: var(--muted); font-size: 13px; }
-.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 18px; }
 .stat-card { padding: 24px; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--primary); }
 .stat-card h3 { font-size: 14px; }
 .stat-card strong { display: block; font-size: 36px; color: var(--primary-dark); }
@@ -843,6 +851,7 @@ h1 em {
 .pagination { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px; margin-top: 20px; font-size: 13px; }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
 button:focus-visible, summary:focus-visible, .table-scroll:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+.field input:focus-visible, .field select:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 dialog { width: min(440px, calc(100% - 32px)); padding: 24px; border: 1px solid var(--line); color: var(--ink); overflow-wrap: anywhere; }
 dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
 .password-field input { padding-right: 44px; }
@@ -946,6 +955,7 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
   .auth-topline { flex-wrap: wrap; gap: 10px; }
   .reservation-actions, .reservation-title { flex-wrap: wrap; }
   .reservation-code { overflow-wrap: anywhere; }
+  .booking-search, .user-editor { padding: 18px; }
 }
 
 @media (max-width: 480px) {
@@ -964,4 +974,10 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
     min-width: 0;
     text-align: center;
   }
+
+  .room-card { padding: 18px; }
+  .booking-brand { min-width: 0; }
+  .booking-brand > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+  .auth-footer { flex-wrap: wrap; gap: 10px; }
+  .reservation-filters { grid-template-columns: minmax(0, 1fr); }
 }

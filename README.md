@@ -153,3 +153,8 @@ La tarea **Validar JavaScript del frontend** revisa la sintaxis del cliente.
 lanzador de desarrollo (selección de Python, argumentos, errores y cierre)
 y el formato de precios COP sin decimales.
 Las pruebas Python se ejecutan por separado con el comando anterior.
+
+Para validar cambios visuales, revisa Dashboard, Reservas, Usuarios y
+Servicios a 320, 375, 768 y 1280 px: la página no debe desplazarse
+horizontalmente (la tabla de usuarios tiene su propio desplazamiento).
+Comprueba también los formularios y las modalidades por noches y horario.
