@@ -20,7 +20,7 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "id": "std",
         "nombre": "Habitación Estándar",
         "detalle": "Cama queen, escritorio y wifi de alta velocidad.",
-        "precio": 890,
+        "precio": 89000,
         "duracion": 1,
         "capacidad": 2,
         "categoria": "Habitación",
@@ -32,7 +32,7 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "id": "dbl",
         "nombre": "Habitación Doble",
         "detalle": "Dos camas matrimoniales y vista a la ciudad.",
-        "precio": 1150,
+        "precio": 115000,
         "duracion": 1,
         "capacidad": 3,
         "categoria": "Habitación",
@@ -44,7 +44,7 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "id": "jr",
         "nombre": "Suite Junior",
         "detalle": "Sala independiente, terraza y desayuno incluido.",
-        "precio": 1620,
+        "precio": 162000,
         "duracion": 1,
         "capacidad": 4,
         "categoria": "Suite",
@@ -56,7 +56,7 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "id": "ste",
         "nombre": "Suite Premium",
         "detalle": "Jacuzzi, servicio a la habitación 24 h y check-out tardío.",
-        "precio": 2340,
+        "precio": 234000,
         "duracion": 1,
         "capacidad": 4,
         "categoria": "Suite",
@@ -68,7 +68,7 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "id": "ind",
         "nombre": "Habitación Individual",
         "detalle": "Cama individual, escritorio y wifi de alta velocidad.",
-        "precio": 650,
+        "precio": 65000,
         "duracion": 1,
         "capacidad": 1,
         "categoria": "Habitación",
@@ -80,7 +80,7 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "id": "dlx",
         "nombre": "Habitación Deluxe",
         "detalle": "Cama king, zona de descanso y vista panorámica.",
-        "precio": 1480,
+        "precio": 148000,
         "duracion": 1,
         "capacidad": 2,
         "categoria": "Habitación",
@@ -92,7 +92,7 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "id": "fam",
         "nombre": "Habitación Familiar",
         "detalle": "Dos camas queen y espacio cómodo para toda la familia.",
-        "precio": 1780,
+        "precio": 178000,
         "duracion": 1,
         "capacidad": 4,
         "categoria": "Habitación",
@@ -104,7 +104,7 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "id": "exe",
         "nombre": "Suite Ejecutiva",
         "detalle": "Área de trabajo, sala privada y desayuno incluido.",
-        "precio": 1950,
+        "precio": 195000,
         "duracion": 1,
         "capacidad": 2,
         "categoria": "Suite",
@@ -116,7 +116,7 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "id": "acc",
         "nombre": "Habitación Accesible",
         "detalle": "Diseño accesible, ducha adaptada y espacios amplios.",
-        "precio": 1050,
+        "precio": 105000,
         "duracion": 1,
         "capacidad": 2,
         "categoria": "Habitación",
@@ -128,7 +128,7 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "id": "pre",
         "nombre": "Suite Presidencial",
         "detalle": "Suite amplia con sala independiente, jacuzzi y atención preferente.",
-        "precio": 3200,
+        "precio": 320000,
         "duracion": 1,
         "capacidad": 4,
         "categoria": "Suite",
@@ -137,6 +137,23 @@ DEFAULT_SERVICES: tuple[Document, ...] = (
         "nombre_normalizado": "suite presidencial",
     },
 )
+
+
+def migrate_catalog_prices(database: MongoDatabase) -> None:
+    migration = {"clave": "precios_catalogo_cop_v1"}
+    settings = database["configuracion"]
+    if settings.find_one(migration) is not None:
+        return
+    for service in DEFAULT_SERVICES:
+        database["servicios"].update_one(
+            {
+                "id": service["id"],
+                "nombre_normalizado": service["nombre_normalizado"],
+                "precio": service["precio"] // 100,
+            },
+            {"$set": {"precio": service["precio"]}},
+        )
+    settings.update_one(migration, {"$set": migration}, upsert=True)
 
 
 def verificar_conexion(nombre_base_datos: str = MONGODB_DATABASE) -> bool:
@@ -176,6 +193,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
             if database["servicios"].count_documents({}) == 0:
                 database["servicios"].insert_many(DEFAULT_SERVICES)
             settings.insert_one({"clave": "catalogo_inicial_creado"})
+        migrate_catalog_prices(database)
     except PyMongoError as error:
         client.close()
         raise RuntimeError(f"No se pudo conectar a MongoDB ({MONGODB_URI}): {error}") from error

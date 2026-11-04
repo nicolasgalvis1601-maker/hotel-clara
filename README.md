@@ -81,6 +81,13 @@ caracteres) y `ADMIN_SETUP_KEY` en `.env`. No compartas ni subas ese archivo.
   finalizada.
 - Catálogo de diez habitaciones y suites sembrado una sola vez en una base
   nueva. No se vuelve a recrear si se elimina posteriormente.
+- Precios en pesos colombianos (COP), con separador de miles y sin decimales:
+  Estándar $89.000, Doble $115.000, Junior $162.000, Premium $234.000,
+  Individual $65.000, Deluxe $148.000, Familiar $178.000, Ejecutiva $195.000,
+  Accesible $105.000 y Presidencial $320.000 por noche. Al iniciar la API,
+  una migración actualiza las tarifas originales del catálogo existente;
+  no recrea servicios eliminados ni modifica tarifas personalizadas o los
+  totales de reservas anteriores.
 
 ## Despliegue en Render
 
