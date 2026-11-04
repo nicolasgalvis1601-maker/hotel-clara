@@ -1,0 +1,11 @@
+{
+  "name": "hotel-clara",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interfaz web y API de reservas de Hotel Clara",
+  "scripts": {
+    "dev": "node backend/scripts/dev.js",
+    "test": "node --test qa/tests/test_dev_launcher.cjs",
+    "check": "node --check frontend/config.js && node --check frontend/script.js && node --check backend/scripts/dev.js"
+  }
+}

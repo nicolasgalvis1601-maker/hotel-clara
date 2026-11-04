@@ -217,7 +217,7 @@ class MongoApiIntegrationTests(unittest.TestCase):
             self.client.delete(f"/api/services/{service_id}", headers=admin_headers).status_code,
             204,
         )
-        self.assertEqual(self.mongo[self.database_name]["servicios"].count_documents({}), 4)
+        self.assertEqual(self.mongo[self.database_name]["servicios"].count_documents({}), 10)
 
 
 if __name__ == "__main__":

@@ -12,6 +12,28 @@ reservas persistidas en MongoDB.
 
 ## Ejecutar localmente
 
+Desde la raíz del proyecto puedes iniciar la página y la API juntas:
+
+```powershell
+python -m pip install -r requirements.txt
+npm run dev
+```
+
+Requiere Node.js, Python y MongoDB en ejecución. No requiere `npm install`:
+el lanzador no usa paquetes npm externos. Usa Python de `.venv` si existe o
+`python` del PATH en caso contrario; instala las dependencias en ese mismo
+intérprete. Si falta `.env`, crea uno con secretos aleatorios; si ya existe,
+lo conserva. Un `.env` existente debe tener `JWT_SECRET` y `ADMIN_SETUP_KEY`
+configurados. Abre `http://127.0.0.1:8000/`. La API se reinicia al cambiar
+código Python; para ver cambios del frontend, recarga el navegador.
+`Ctrl+C` detiene el servidor.
+
+Para usar otro puerto: `npm run dev -- --port 8001`. El comando no inicia ni
+instala MongoDB: usa la conexión configurada en `.env` y muestra un error si
+no puede conectarse.
+
+También puedes usar las tareas de VS Code:
+
 1. Inicia MongoDB local (`mongodb://localhost:27017/`).
 2. En VS Code ejecuta la tarea **Crear configuración local segura**. Crea
    `.env` con secretos aleatorios solo si aún no existe; no reemplaza una
@@ -57,8 +79,8 @@ caracteres) y `ADMIN_SETUP_KEY` en `.env`. No compartas ni subas ese archivo.
   y su horario se libera. Pueden cancelar el propietario o un administrador.
   Solo el propietario puede eliminar del historial una reserva cancelada o
   finalizada.
-- Catálogo estándar sembrado una sola vez en una base nueva. No se vuelve a
-  recrear si se elimina posteriormente.
+- Catálogo de diez habitaciones y suites sembrado una sola vez en una base
+  nueva. No se vuelve a recrear si se elimina posteriormente.
 
 ## Despliegue en Render
 
@@ -119,3 +141,7 @@ temporal**. La prueba usa una base `hotel_test_<id>` aislada y la elimina al
 finalizar; no modifica `hotel`.
 
 La tarea **Validar JavaScript del frontend** revisa la sintaxis del cliente.
+
+`npm run check` valida la sintaxis JavaScript y `npm test` comprueba el
+lanzador de desarrollo (selección de Python, argumentos, errores y cierre).
+Las pruebas Python se ejecutan por separado con el comando anterior.
