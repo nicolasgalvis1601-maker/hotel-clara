@@ -435,7 +435,7 @@ function renderRooms() {
       <p class="room-detail">${escapeHTML(room.detalle)}</p>
       <p class="room-meta">Hasta ${room.capacidad} huéspedes · ${criteria.modalidad === 'noches' ? `Mínimo ${room.duracion} noche(s)` : 'Reserva por horario'}</p>
       <div class="room-bottom">
-        <span class="room-price">$${Math.round(room.precio * nights * 100) / 100} <small>${criteria.modalidad === 'horario' ? 'por cita' : criteria.valid ? 'total' : 'por noche'}</small></span>
+        <span class="room-price">${formatMoney(room.precio * nights)} <small>${criteria.modalidad === 'horario' ? 'por cita' : criteria.valid ? 'total' : 'por noche'}</small></span>
         <button class="room-button" type="button" data-room="${escapeHTML(room.id)}" disabled>${locallyAvailable ? 'Comprobando…' : 'Reservar'}</button>
       </div>
     `;
@@ -493,7 +493,11 @@ function setReservationsMessage(message, success = false) {
 }
 
 function formatMoney(value) {
-  return `$${Number(value).toLocaleString('es-CO', { maximumFractionDigits: 2 })}`;
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    maximumFractionDigits: 0,
+  }).format(Number(value));
 }
 
 function formatShortDate(value) {
@@ -1666,7 +1670,7 @@ async function renderServices() {
     meta.textContent = `${service.categoria} · ${service.duracion} noche(s) mínimo · Hasta ${service.capacidad} huéspedes`;
     const price = document.createElement('strong');
     price.className = 'room-price';
-    price.textContent = `$${service.precio.toFixed(2)} por ${service.duracion === 0 ? 'cita' : 'noche'}`;
+    price.textContent = `${formatMoney(service.precio)} por ${service.duracion === 0 ? 'cita' : 'noche'}`;
     const state = document.createElement('span');
     state.className = `user-state ${service.estado === 'disponible' ? 'activo' : 'inactivo'}`;
     state.textContent = service.estado === 'disponible' ? 'Disponible' : 'Inactivo';
