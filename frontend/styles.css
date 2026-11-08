@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
+  color-scheme: light;
   --ink: #1e293b;
   --muted: #64748b;
   --paper: #f8fafc;
@@ -12,6 +13,24 @@
   --error: #dc2626;
   --warning: #f59e0b;
   --info: #0284c7;
+  --action-bg: #1e293b;
+  --warning-text: #1e293b;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #e2e8f0;
+  --muted: #a5b4c6;
+  --paper: #0f172a;
+  --surface: #1e293b;
+  --line: #475569;
+  --primary: #60a5fa;
+  --primary-dark: #0b1220;
+  --success: #4ade80;
+  --error: #f87171;
+  --warning: #fbbf24;
+  --info: #38bdf8;
+  --action-bg: #2563eb;
 }
 
 * {
@@ -36,7 +55,7 @@ textarea { font: inherit; width: 100%; padding: 12px; border: 1px solid var(--li
 textarea.invalid { border-color: var(--error); }
 textarea:focus-visible { outline: 2px solid var(--primary); }
 .service-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 18px; }
-.service-image { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 220px; object-fit: cover; border-radius: 4px; background: #e8eef5; }
+.service-image { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 220px; object-fit: cover; border-radius: 4px; background: var(--paper); }
 .service-card { overflow-wrap: anywhere; }
 .service-card h3 { margin: 0; font-size: 18px; }
 .service-card .room-detail { white-space: pre-wrap; }
@@ -165,10 +184,6 @@ h1 em {
   color: var(--muted);
   font: 11px 'DM Mono', monospace;
   letter-spacing: 0.11em;
-}
-
-.secure-label {
-  color: var(--success);
 }
 
 .auth-content {
@@ -371,7 +386,8 @@ h1 em {
 
 .primary-button {
   margin-top: 7px;
-  background: var(--ink);
+  border-color: var(--action-bg);
+  background: var(--action-bg);
   color: #fff;
 }
 
@@ -636,8 +652,8 @@ h1 em {
 
 .room-button {
   padding: 10px 16px;
-  border: 1px solid var(--ink);
-  background: var(--ink);
+  border: 1px solid var(--action-bg);
+  background: var(--action-bg);
   color: var(--surface);
   cursor: pointer;
   font-size: 12px;
@@ -712,7 +728,7 @@ h1 em {
 
 .reservation-card.state-pendiente .reservation-state {
   background: var(--warning);
-  color: var(--ink);
+  color: var(--warning-text);
 }
 
 .reservation-card.state-cancelada {
@@ -842,12 +858,12 @@ h1 em {
 .users-table { width: 100%; min-width: 760px; border-collapse: collapse; background: var(--surface); font-size: 13px; }
 .users-table caption { padding: 12px; text-align: left; color: var(--muted); }
 .users-table th, .users-table td { padding: 14px; text-align: left; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; max-width: 240px; }
-.users-table th { background: #f1f5f9; }
+.users-table th { background: var(--paper); }
 .users-table .quick-actions { flex-wrap: nowrap; }
 .user-state { display: inline-block; padding: 4px 8px; border-radius: 6px; }
 .user-state.activo { background: var(--success); color: var(--surface); }
 .user-state.inactivo { background: var(--error); color: var(--surface); }
-.user-state.pendiente { background: var(--warning); color: var(--ink); }
+.user-state.pendiente { background: var(--warning); color: var(--warning-text); }
 .pagination { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px; margin-top: 20px; font-size: 13px; }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
 button:focus-visible, summary:focus-visible, .table-scroll:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
@@ -871,10 +887,10 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
 .reservation-fields dt, .detail-list dt { color: var(--muted); font: 10px 'DM Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; }
 .reservation-fields dd { margin: 2px 0 0; color: var(--ink); font-size: 13px; }
 .reservation-actions { flex-wrap: wrap; justify-content: flex-end; }
-.reservation-card.state-finalizada .reservation-state { background: #475569; }
+.reservation-card.state-finalizada .reservation-state { background: #475569; color: #fff; }
 .reservation-state.inline { display: inline-block; color: var(--surface); }
 .reservation-state.state-confirmada { background: var(--success); }
-.reservation-state.state-pendiente { background: var(--warning); color: var(--ink); }
+.reservation-state.state-pendiente { background: var(--warning); color: var(--warning-text); }
 .reservation-edit-title { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 13px; }
 .reservation-edit .edit-notes { grid-column: 1 / -1; }
 .reservation-edit .reservation-actions { grid-column: 1 / -1; justify-content: flex-start; }
@@ -891,6 +907,27 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
 .ghost-button.neutral { color: var(--muted); border-color: var(--muted); }
 .danger-button { padding: 10px 16px; border: 1px solid var(--error); background: var(--error); color: var(--surface); font-size: 12px; font-weight: 700; cursor: pointer; }
 .danger-button:hover:not(:disabled) { background: #b91c1c; border-color: #b91c1c; }
+
+.theme-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 10;
+  padding: 11px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.22);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.theme-toggle:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
 
 @media (max-width: 800px) {
   .app-shell {

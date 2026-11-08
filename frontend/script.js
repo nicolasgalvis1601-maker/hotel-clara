@@ -1,4 +1,5 @@
 const SESSION_KEY = 'session_token';
+const THEME_STORAGE_KEY = 'hotel_theme';
 const USERS_PER_PAGE = 5;
 const RESERVATIONS_PER_PAGE = 5;
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -75,10 +76,28 @@ const cancelReservationDialog = document.querySelector('#cancel-reservation-dial
 const globalMessage = document.querySelector('#global-message');
 const title = document.querySelector('#auth-title');
 const subtitle = document.querySelector('#auth-subtitle');
+const themeToggleButton = document.querySelector('#theme-toggle');
+const themeToggleLabel = document.querySelector('#theme-toggle-label');
 const authTabs = document.querySelectorAll('.auth-tab');
 const passwordToggleButtons = document.querySelectorAll('.password-toggle');
 const logoutButtons = document.querySelectorAll('[data-action="logout"]');
 const forgotButton = document.querySelector('[data-action="forgot"]');
+
+function setTheme(theme) {
+  const isDark = theme === 'dark';
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  themeToggleButton.setAttribute('aria-pressed', String(isDark));
+  themeToggleButton.setAttribute('aria-label', `Cambiar a modo ${isDark ? 'claro' : 'oscuro'}`);
+  themeToggleLabel.textContent = `Modo ${isDark ? 'claro' : 'oscuro'}`;
+  localStorage.setItem(THEME_STORAGE_KEY, isDark ? 'dark' : 'light');
+}
+
+function initializeTheme() {
+  setTheme(localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light');
+  themeToggleButton.addEventListener('click', () => {
+    setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+  });
+}
 
 function getUsers() {
   return apiState.users;
@@ -1855,4 +1874,5 @@ function bindServiceEvents() {
 bindEvents();
 bindManagementEvents();
 bindServiceEvents();
+initializeTheme();
 initializeSession();

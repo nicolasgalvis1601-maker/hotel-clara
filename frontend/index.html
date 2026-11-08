@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css?v=responsive-1" />
+    <script>if (localStorage.getItem('hotel_theme') === 'dark') document.documentElement.dataset.theme = 'dark';</script>
+    <link rel="stylesheet" href="styles.css?v=theme-1" />
     <script src="config.js"></script>
-    <script src="script.js?v=responsive-1" defer></script>
+    <script src="script.js?v=theme-1" defer></script>
     <title>Hotel Clara</title>
   </head>
   <body>
@@ -26,7 +27,6 @@
       <section class="auth-panel" aria-label="Acceso a la cuenta">
         <div class="auth-topline">
           <span>BIENVENIDO</span>
-          <span class="secure-label">● CONEXIÓN SEGURA</span>
         </div>
 
         <div class="auth-content">
@@ -362,5 +362,8 @@
       </section>
       <footer class="booking-footer">© 2026 Hotel Clara · Datos guardados en el servidor</footer>
     </main>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Cambiar a modo oscuro">
+      <span id="theme-toggle-label">Modo oscuro</span>
+    </button>
   </body>
 </html>
