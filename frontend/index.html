@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>if (localStorage.getItem('hotel_theme') === 'dark') document.documentElement.dataset.theme = 'dark';</script>
-    <link rel="stylesheet" href="styles.css?v=theme-1" />
+    <link rel="stylesheet" href="styles.css?v=theme-2" />
     <script src="config.js"></script>
-    <script src="script.js?v=theme-1" defer></script>
+    <script src="script.js?v=theme-2" defer></script>
     <title>Hotel Clara</title>
   </head>
   <body>
@@ -27,6 +27,16 @@
       <section class="auth-panel" aria-label="Acceso a la cuenta">
         <div class="auth-topline">
           <span>BIENVENIDO</span>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Cambiar a modo oscuro">
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+            </svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.5 8.5 0 1 0 20.2 15.1Z"></path>
+            </svg>
+            <span class="theme-toggle-label">Modo claro</span>
+          </button>
         </div>
 
         <div class="auth-content">
@@ -133,6 +143,16 @@
             <small>Reservas de habitaciones</small>
           </span>
         </div>
+        <button class="theme-toggle booking-theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Cambiar a modo oscuro">
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+          </svg>
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.5 8.5 0 1 0 20.2 15.1Z"></path>
+          </svg>
+          <span class="theme-toggle-label">Modo claro</span>
+        </button>
         <div class="booking-user">
           <span id="booking-user-name"></span>
           <details class="user-menu">
@@ -362,8 +382,5 @@
       </section>
       <footer class="booking-footer">© 2026 Hotel Clara · Datos guardados en el servidor</footer>
     </main>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Cambiar a modo oscuro">
-      <span id="theme-toggle-label">Modo oscuro</span>
-    </button>
   </body>
 </html>

@@ -186,6 +186,10 @@ h1 em {
   letter-spacing: 0.11em;
 }
 
+.auth-topline {
+  font-size: 13px;
+}
+
 .auth-content {
   width: min(100%, 500px);
   margin: auto;
@@ -909,24 +913,47 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
 .danger-button:hover:not(:disabled) { background: #b91c1c; border-color: #b91c1c; }
 
 .theme-toggle {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  flex: 0 0 auto;
   padding: 11px 16px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   color: var(--ink);
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.22);
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
+  letter-spacing: 0;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
 
 .theme-toggle:hover {
   border-color: var(--primary);
   color: var(--primary);
+}
+
+.theme-icon {
+  display: none;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+:root[data-theme="light"] .theme-icon-sun,
+:root[data-theme="dark"] .theme-icon-moon {
+  display: block;
+}
+
+.booking-theme-toggle {
+  margin-left: auto;
 }
 
 @media (max-width: 800px) {
@@ -965,6 +992,10 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
 
   .auth-topline {
     padding: 20px 26px;
+  }
+
+  .booking-theme-toggle {
+    margin-left: 0;
   }
 
   .auth-content {
