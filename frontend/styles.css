@@ -79,7 +79,9 @@ textarea:focus-visible { outline: 2px solid var(--primary); }
   min-height: 100vh;
   padding: clamp(40px, 8vw, 110px);
   overflow: hidden;
-  background: var(--primary);
+  background:
+    linear-gradient(120deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.84)),
+    url("./images/room-default.svg") center / cover;
 }
 
 .brand-panel::after {
@@ -92,6 +94,23 @@ textarea:focus-visible { outline: 2px solid var(--primary); }
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   box-shadow: 0 0 0 38px rgba(255, 255, 255, 0.08), 0 0 0 76px rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+
+.brand-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.brand-panel .brand-mark {
+  position: absolute;
+  top: clamp(28px, 5vw, 64px);
+  left: clamp(28px, 6vw, 80px);
+  margin: 0;
+}
+
+.brand-panel .eyebrow {
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .brand-mark {
@@ -123,8 +142,8 @@ p {
 
 h1 {
   max-width: 500px;
-  margin-bottom: 24px;
-  font-size: clamp(44px, 6vw, 82px);
+  margin-bottom: 18px;
+  font-size: clamp(34px, 3.6vw, 50px);
   line-height: 0.98;
   letter-spacing: -0.055em;
   font-weight: 700;
@@ -138,10 +157,10 @@ h1 em {
 
 .brand-copy {
   max-width: 340px;
-  margin-bottom: 42px;
+  margin-bottom: 28px;
   color: var(--surface);
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .brand-detail {
@@ -160,40 +179,34 @@ h1 em {
   background: var(--warning);
 }
 
-.brand-note {
-  margin: auto 0 0;
-  color: var(--surface);
-  font: 11px 'DM Mono', monospace;
-  letter-spacing: 0.12em;
-}
-
 /* Auth panel */
 .auth-panel {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: var(--surface);
+  background: var(--paper);
 }
 
-.auth-topline,
-.auth-footer {
+.auth-topline {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 28px clamp(28px, 6vw, 90px);
-  color: var(--muted);
-  font: 11px 'DM Mono', monospace;
-  letter-spacing: 0.11em;
-}
-
-.auth-topline {
-  font-size: 13px;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--ink);
 }
 
 .auth-content {
-  width: min(100%, 500px);
+  width: min(100%, 440px);
   margin: auto;
-  padding: 50px 28px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
 }
 
 .auth-heading .eyebrow {
@@ -202,19 +215,20 @@ h1 em {
 
 .auth-heading h2 {
   margin-bottom: 10px;
-  font-size: 38px;
+  font-size: 28px;
   letter-spacing: -0.04em;
 }
 
 .auth-heading p:not(.eyebrow) {
   color: var(--muted);
+  font-size: 15px;
 }
 
 /* Tabs */
 .auth-tabs {
   display: flex;
-  gap: 26px;
-  margin: 44px 0 30px;
+  gap: 24px;
+  margin: 26px 0 24px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -275,7 +289,7 @@ h1 em {
 
 .field label {
   color: var(--ink);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -291,7 +305,7 @@ h1 em {
   background: none;
   color: var(--primary);
   cursor: pointer;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .password-field {
@@ -333,6 +347,23 @@ h1 em {
   transition: border-color 0.2s;
 }
 
+.auth-form .field > input,
+.auth-form .password-field input {
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+}
+
+.auth-form .password-field input {
+  padding-right: 42px;
+}
+
+.auth-form .field > input:focus,
+.auth-form .password-field input:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 16%, transparent);
+}
+
 .field input:focus,
 .password-field input:focus {
   border-color: var(--primary);
@@ -354,7 +385,7 @@ h1 em {
 
 .field-hint {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .terms {
@@ -814,15 +845,6 @@ h1 em {
   letter-spacing: 0.08em;
 }
 
-.auth-footer {
-  margin-top: auto;
-  border-top: 1px solid var(--line);
-  padding-top: 20px;
-  padding-bottom: 20px;
-  color: var(--muted);
-  letter-spacing: 0.04em;
-}
-
 .main-nav {
   display: flex;
   flex-wrap: wrap;
@@ -916,17 +938,21 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 8px;
   flex: 0 0 auto;
-  padding: 11px 16px;
+  padding: 10px 11px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   color: var(--ink);
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 700;
+  line-height: 1;
   letter-spacing: 0;
+  position: relative;
+  width: 42px;
+  height: 38px;
+  padding: 0;
+  isolation: isolate;
   transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
 
@@ -936,10 +962,11 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
 }
 
 .theme-icon {
-  display: none;
-  width: 21px;
-  height: 21px;
-  flex: 0 0 auto;
+  position: absolute;
+  inset: 9px;
+  width: 18px;
+  height: 18px;
+  transition: opacity 0.2s, transform 0.2s;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
@@ -947,9 +974,30 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
   stroke-width: 1.8;
 }
 
-:root[data-theme="light"] .theme-icon-sun,
+:root:not([data-theme="dark"]) .theme-icon-sun {
+  z-index: 2;
+  opacity: 1;
+  transform: rotate(0);
+  color: var(--warning);
+}
+
+:root:not([data-theme="dark"]) .theme-icon-moon {
+  z-index: 1;
+  opacity: 0.28;
+  transform: scale(0.82);
+}
+
+:root[data-theme="dark"] .theme-icon-sun {
+  z-index: 1;
+  opacity: 0.28;
+  transform: scale(0.82);
+}
+
 :root[data-theme="dark"] .theme-icon-moon {
-  display: block;
+  z-index: 2;
+  opacity: 1;
+  transform: rotate(0);
+  color: var(--primary);
 }
 
 .booking-theme-toggle {
@@ -962,12 +1010,21 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
   }
 
   .brand-panel {
-    min-height: 330px;
-    padding: 30px 26px;
+    min-height: 320px;
+    padding: 24px 26px;
   }
 
-  .brand-mark {
-    margin: 0 0 45px;
+  .brand-panel .brand-mark {
+    top: 24px;
+    left: 26px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .brand-panel .eyebrow {
+    margin-top: 32px;
+    margin-bottom: 12px;
   }
 
   .brand-panel::after {
@@ -978,20 +1035,17 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
   }
 
   .brand-copy {
-    margin-bottom: 20px;
-    font-size: 13px;
-  }
-
-  .brand-note {
-    display: none;
+    max-width: 360px;
+    margin-bottom: 22px;
+    font-size: 14px;
   }
 
   .auth-panel {
-    min-height: calc(100vh - 330px);
+    min-height: calc(100vh - 320px);
   }
 
   .auth-topline {
-    padding: 20px 26px;
+    padding: 18px 22px;
   }
 
   .booking-theme-toggle {
@@ -999,12 +1053,15 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
   }
 
   .auth-content {
-    padding: 36px 26px 50px;
+    width: min(calc(100% - 32px), 440px);
+    padding: 24px;
+    margin: auto;
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
   }
 
-  .auth-footer {
-    padding: 18px 26px;
-    font-size: 9px;
+  .auth-topline {
+    font-size: 22px;
   }
 
   .search-form {
@@ -1046,6 +1103,5 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
   .room-card { padding: 18px; }
   .booking-brand { min-width: 0; }
   .booking-brand > span:last-child { min-width: 0; overflow-wrap: anywhere; }
-  .auth-footer { flex-wrap: wrap; gap: 10px; }
   .reservation-filters { grid-template-columns: minmax(0, 1fr); }
 }

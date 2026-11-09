@@ -88,7 +88,6 @@ function setTheme(theme) {
   themeToggleButtons.forEach((button) => {
     button.setAttribute('aria-pressed', String(isDark));
     button.setAttribute('aria-label', `Cambiar a modo ${isDark ? 'claro' : 'oscuro'}`);
-    button.querySelector('.theme-toggle-label').textContent = `Modo ${isDark ? 'oscuro' : 'claro'}`;
   });
   localStorage.setItem(THEME_STORAGE_KEY, isDark ? 'dark' : 'light');
 }
