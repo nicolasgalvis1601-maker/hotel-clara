@@ -69,6 +69,11 @@ test('el selector de tema usa iconos junto a bienvenida y en reservas', () => {
   assert.match(styles, /:root\[data-theme="dark"\]/);
   assert.match(styles, /--surface: #1e293b/);
   assert.match(styles, /--ink: #e2e8f0/);
+  assert.match(styles, /--muted: #cbd5e1/);
+  assert.match(styles, /--error: #f87171/);
+  assert.match(styles, /--error-bg: #b91c1c/);
+  assert.match(styles, /color: var\(--on-accent\);/);
+  assert.match(styles, /:root\[data-theme="dark"\] \.stat-card strong/);
   assert.match(styles, /\.theme-toggle\s*\{[^}]*padding: 10px 11px;/s);
   assert.doesNotMatch(styles, /\.theme-toggle\s*\{[^}]*position: fixed;/s);
 });
