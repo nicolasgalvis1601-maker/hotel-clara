@@ -1013,25 +1013,29 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
 :root:not([data-theme="dark"]) .theme-icon-sun {
   z-index: 2;
   opacity: 1;
+  visibility: visible;
   transform: rotate(0);
   color: var(--warning);
 }
 
 :root:not([data-theme="dark"]) .theme-icon-moon {
   z-index: 1;
-  opacity: 0.28;
+  opacity: 0;
+  visibility: hidden;
   transform: scale(0.82);
 }
 
 :root[data-theme="dark"] .theme-icon-sun {
   z-index: 1;
-  opacity: 0.28;
+  opacity: 0;
+  visibility: hidden;
   transform: scale(0.82);
 }
 
 :root[data-theme="dark"] .theme-icon-moon {
   z-index: 2;
   opacity: 1;
+  visibility: visible;
   transform: rotate(0);
   color: var(--primary);
 }
