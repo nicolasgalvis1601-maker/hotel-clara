@@ -69,8 +69,9 @@ textarea:focus-visible { outline: 2px solid var(--primary); }
 /* Layout */
 .app-shell {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   min-height: 100vh;
+  min-height: 100svh;
 }
 
 /* Brand panel */
@@ -80,7 +81,8 @@ textarea:focus-visible { outline: 2px solid var(--primary); }
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  padding: clamp(40px, 8vw, 110px);
+  min-height: 100svh;
+  padding: clamp(40px, 6vw, 80px);
   overflow: hidden;
   background:
     linear-gradient(120deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.84)),
@@ -160,11 +162,17 @@ h1 em {
   font-style: normal;
 }
 
+.brand-panel h1 {
+  max-width: 500px;
+  font-size: clamp(42px, 5vw, 72px);
+  line-height: 0.96;
+}
+
 .brand-copy {
-  max-width: 340px;
+  max-width: 420px;
   margin-bottom: 28px;
   color: var(--on-accent);
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.6;
 }
 
@@ -188,7 +196,9 @@ h1 em {
 .auth-panel {
   display: flex;
   flex-direction: column;
+  width: 100%;
   min-height: 100vh;
+  min-height: 100svh;
   background: var(--paper);
 }
 
@@ -1031,12 +1041,13 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
   }
 
   .brand-panel {
-    min-height: 320px;
-    padding: 24px 26px;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 120px 26px 36px;
   }
 
   .brand-panel .brand-mark {
-    top: 24px;
+    top: 28px;
     left: 26px;
     width: 40px;
     height: 40px;
@@ -1044,8 +1055,18 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
   }
 
   .brand-panel .eyebrow {
-    margin-top: 32px;
+    margin-top: 0;
     margin-bottom: 12px;
+  }
+
+  .brand-panel h1 {
+    max-width: 620px;
+    font-size: clamp(48px, 11vw, 76px);
+  }
+
+  .brand-copy {
+    max-width: 420px;
+    font-size: 15px;
   }
 
   .brand-panel::after {
@@ -1055,14 +1076,12 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
     bottom: -110px;
   }
 
-  .brand-copy {
-    max-width: 360px;
-    margin-bottom: 22px;
-    font-size: 14px;
-  }
-
   .auth-panel {
-    min-height: calc(100vh - 320px);
+    position: static;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    box-shadow: none;
   }
 
   .auth-topline {
