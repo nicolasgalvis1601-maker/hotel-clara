@@ -204,10 +204,7 @@ h1 em {
 }
 
 .auth-topline {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
+  position: static;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1094,7 +1091,6 @@ dialog::backdrop { background: rgba(30, 41, 59, 0.5); }
   }
 
   .auth-topline {
-    position: static;
     padding: 18px 22px;
   }
 
